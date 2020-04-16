@@ -1,0 +1,101 @@
+.course-detail {
+    width: 100%;
+    height: 100%;
+    background: var(--color-white);
+}
+.course-detail>div {
+    padding: 40px 24px;    
+    width: 100%;
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+}
+.course-detail .card {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    justify-items: center;
+    padding: 20px;
+    gap: 20px;
+    background: var(--color-white-light);
+}
+.course-detail .card>.title {
+    width: 100%;
+    text-align: center;
+    font-family: var(--font-secondary);
+}
+
+.course-detail .card>.subtitle {
+    width: 100%;
+    max-width: 1000px;    
+    text-align: center;
+}
+.course-detail .card>.video {
+    width: 100%;
+    justify-self: center;
+}
+
+.course-detail .card>.video>.video-wrapper {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+}
+.course-detail .card>.video>.video-wrapper>iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.course-detail .card>.description {
+    width: 100%;
+    max-width: 1000px;    
+}
+.course-detail .card>.description > ul > li {
+    list-style: circle;
+    margin-left: 20px;
+}
+
+.course-detail .form-sale {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.course-detail .form-sale>input {
+    margin: 0 0 8px 0;
+    padding: 10px;
+    font-size: 12px;
+    outline: none;
+    border: 1px solid var(--color-grey-light);
+}
+.course-detail .form-sale>input.error {
+    border: 1px solid var(--color-red);
+}
+.course-detail .form-sale>label {
+    font-size: 14px;;
+}
+.course-detail .form-sale>label.error {
+    color: var(--color-red);
+}
+
+.course-detail .form-sale>button {
+    width: 100%;
+    font-size: 18px;
+    padding: 20px;
+}
+
+@media (min-width: 780px) {
+    .course-detail>div {
+        padding: 40px 64px;
+    }
+    .course-detail .card>.video {
+        max-width: 1000px; 
+    }    
+    .course-detail .form-sale {
+        max-width: 1000px;
+    }
+}
+
+.mercadoPagoForm {
+    display: none;
+}

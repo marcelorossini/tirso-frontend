@@ -1,0 +1,89 @@
+:root {
+  --color-red: #FF3D36;
+  --color-red-dark: #ca332e;
+  --color-red-transparent: rgba(255, 61, 54, 0.75);
+  --color-dark: #4c4c4c;
+  --color-dark-light: #797979;  
+  --color-grey-light: #b9b9b9;
+  --color-grey: #929292;
+  --color-black: #252525;
+  --color-white-light: #ffffff;
+  --color-white: #ececec;
+  --shadow: 2px 2px 2px rgba(0, 0, 0, 0.02);
+  --shadow-expand: 0px 0px 50px rgba(0, 0, 0, 0.2);
+
+  --page-max-width: 1200px;
+
+  --font-primary: 'Montserrat', sans-serif;
+  --font-secondary: 'Raleway', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-primary);
+}
+
+ul {
+  list-style: none;
+}
+
+a, a:hover, a:active {
+  text-decoration: none;                
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-size: 16px;
+  background: var(--color-white);
+}
+
+h1 {
+  color: var(--color-dark);
+  font-size: 36px;
+}
+
+button {
+  outline: none;
+  border: none;
+}
+
+main {
+  grid-area: main;
+}
+.app {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: "header" "main" "footer";
+}    
+
+.block-click, .block-click > a {
+  pointer-events: none;
+  cursor: default;
+}
+
+.btn {
+  position: relative;
+  font-weight: 800;
+  background: var(--color-red);
+  color: var(--color-white);
+  cursor: pointer;
+}
+.btn:hover {
+  background: var(--color-red-dark);
+  transition: .2s;
+}
+.btn>a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  color: var(--color-white);
+}
