@@ -1,0 +1,14 @@
+.loading {
+    display: grid;
+    width: 100%;    
+    height: 100%;
+    padding: 100px;
+}
+.loading > div {
+    justify-self: center;
+    align-self: center;
+}
+.loading > div > i {
+    font-size: 48px;
+    color: var(--color-red)
+}

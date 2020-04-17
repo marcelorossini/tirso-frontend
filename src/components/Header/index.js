@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState} from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import './style.css';
 
@@ -33,7 +33,9 @@ const Header = ({ history }) => {
                     <li>
                         <Link to="/about" onClick={() => toggleMenu(false)}>CURSOS</Link>
                     </li>
-                    <li><a href="#">ÁREA DO ALUNO <i className="fas fa-user"></i></a></li>
+                    <li>
+                        <Link to="/" onClick={() => toggleMenu(false)}>ÁREA DO ALUNO <i className="fas fa-user"></i></Link>     
+                    </li>
                 </ul>
             </nav>            
             <strong className="text">{ !menuOpen ? "FIQUE ENTRE O MELHORES, APRENDENDO DE FORMA PRATICA E SAIA NA FRENTE" : ""}</strong>

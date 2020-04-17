@@ -20,7 +20,7 @@ export default () => {
                     <p>Nosso objetivo é capacitar as pessoas que gostam de mecânica de motocicleta e formar profissionais nessa área para atuar no mercado de trabalho.</p>                
                 </div>             
                 <div className="profile">
-                    <img src={tirso} />
+                    <img src={tirso} alt="" />
                 </div>                                           
             </div>
         </div>
