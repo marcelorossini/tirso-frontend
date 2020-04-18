@@ -3,7 +3,8 @@ import './style.css';
 
 // Outras
 import api from '../../services/api';
-import Loading from '../../components/Loading'
+import LoadingAndErrorWrapper from '../../components/LoadingAndErrorWrapper'
+import { checkErrors } from '../../Helpers';
 
 // Assets
 import approved from '../../assets/payment/approved.svg'
@@ -11,8 +12,9 @@ import error from '../../assets/payment/error.svg'
 
 // Processa pagamento
 const ProcessPayment = ({ history, location, match }) => {
-    // Loading
+    // Loading e erros
     const [isLoaded, setIsLoaded] = useState(false);
+    const [isError, setIsError] = useState(false);
     // Status 
     const status = match.params.type;
     const search = window.location.search;
@@ -24,12 +26,12 @@ const ProcessPayment = ({ history, location, match }) => {
         const params = new URLSearchParams(search);
         // Verifica se deve salvar 
         // Pega id do MP
-        const collection_id = params.get('collection_id');        
+        const collection_id = params.get('collection_id');
         // Se houver a coleção
         if (collection_id !== null) {
             // Cria registro
-            createOrder(params);   
-        // Se não houver usuário
+            createOrder(params);
+            // Se não houver usuário
         } else if (Object.keys(userData).length === 0) {
             history.push('/');
         }
@@ -37,10 +39,12 @@ const ProcessPayment = ({ history, location, match }) => {
 
     // Cria pagamento
     const createOrder = async (params) => {
+        const user = params.get('user');
+        const course = params.get('course');
         // Salva no banco
         const object = {
-            user: params.get('user'),
-            course: params.get('course'),
+            user,
+            course,
             collection_id: params.get('collection_id'),
             collection_status: params.get('collection_status'),
             external_reference: params.get('external_reference'),
@@ -53,43 +57,60 @@ const ProcessPayment = ({ history, location, match }) => {
         };
         // Cria compra
         const response = await api.post('/order', object);
+        // Verifica se há erros
+        if (checkErrors(response)) {
+            // Marca como carregado
+            setIsError(true);
+            return;
+        }             
         // Pega dados do usuário
-        const userData = await api.get(`/user?_id=${object.user}`);
+        const userData = await api.get(`/user?_id=${user}`);
+        // Verifica se há erros
+        if (checkErrors(userData)) {
+            // Marca como carregado
+            setIsError(true);
+            return;
+        }             
         setUserData(userData.data[0]);
+        // Envia email
+        const sendMail = await api.post('/mail/send',{
+            user,
+            course
+        });
+        // Verifica se há erros
+        if (checkErrors(sendMail)) {
+            // Marca como carregado
+            setIsError(true);
+            return;
+        }    
         // Marca como carregado
-        setIsLoaded(true);                 
+        setIsLoaded(true);
         // Vai para oura rota e remove a query string
         history.push(location.pathname);
     }
 
-    // Se carregado
-    if (isLoaded) {
-        return (
+    return (
+        <LoadingAndErrorWrapper isLoaded={isLoaded} isError={isError}>
             <div className="payment-status">
                 <div>
                     {
                         status === 'aprovado'
-                        ?
-                        <div className="card">
-                            <img src={approved} alt="" />
-                            <strong>Obrigado por comprar o curso, {userData.name}!</strong>
-                            <p>Os detalhes serão enviados no email {userData.email}.</p>
-                        </div>
-                        :
-                        <div className="card">
-                            <img src={error} alt="" />
-                            <strong>Houve um erro!</strong>
-                            <p>Tente realizar a compra novamente!</p>
-                        </div>
+                            ?
+                            <div className="card">
+                                <img src={approved} alt="" />
+                                <strong>Obrigado por comprar o curso, {userData.name}!</strong>
+                                <p>Os detalhes serão enviados no email {userData.email}.</p>
+                            </div>
+                            :
+                            <div className="card">
+                                <img src={error} alt="" />
+                                <strong>Houve um erro!</strong>
+                                <p>Tente realizar a compra novamente!</p>
+                            </div>
                     }
                 </div>
             </div>
-        )
-    // Loading
-    } else {
-        return (
-            <Loading />
-        )
-    }
+        </LoadingAndErrorWrapper>
+    )
 }
 export default ProcessPayment;

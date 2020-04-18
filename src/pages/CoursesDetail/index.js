@@ -5,19 +5,27 @@ import './style.css';
 // Other
 import api from '../../services/api';
 import InputMask from 'react-input-mask';
-import Loading from '../../components/Loading'
+import LoadingAndErrorWrapper from '../../components/LoadingAndErrorWrapper'
+import { checkErrors } from '../../Helpers';
 
 // Function
 export default (props) => {
-    // Loading
+    // Loading e erros
     const [isLoaded, setIsLoaded] = useState(false);
+    const [isError, setIsError] = useState(false);
     // Dados do curso
     const [courseDetail, setCourseDetail] = useState({});
     useEffect(() => {
+        // Consulta dados do curso
         const getCourseDetail = async () => {
-            const name = props.match.params.id;
-            const course = await api.get(`/course?url=${name}`);
+            const course = await api.get(`/course?url=${props.match.params.id}`);
+            // Verifica se há erros
+            if (checkErrors(course)) {
+                setIsError(true);
+                return;
+            }                                  
             setCourseDetail(course.data[0]);
+            // Marca como carregado
             setIsLoaded(true);
         }
         getCourseDetail();
@@ -25,12 +33,6 @@ export default (props) => {
             setCourseDetail({});
         };
     }, [props])
-
-    // Gera a url de pagamento
-    const generateMercadoPagoUrl = async (user) => {
-        const response = await api.post('/checkout', { user, course: courseDetail._id });
-        return response.data.url;
-    }
 
     // Envia formulário
     const handleSendForm = async (e) => {
@@ -76,16 +78,29 @@ export default (props) => {
         if (countErrors.length === 0) {
             // Cadastra usuário
             const response = await api.post('/user', formData);
-            const { error = null, _id: user } = response.data;
+            // Verifica se há erros
+            if (checkErrors(response)) {
+                // Marca como erro
+                setIsError(true);
+                return;
+            }                           
+            const { _id: user } = response.data;
             // Se não houver erros
-            if (error === null) {
-                if (courseDetail.release) {
-                    window.location.href = await generateMercadoPagoUrl(user);
-                } else {
-                    alert();
-                }
+            if (courseDetail.release) {
+                // Marca como carregando
+                setIsLoaded(false);
+                const response = await api.post('/checkout', { user, course: courseDetail._id });
+                // Verifica se há erros
+                if (checkErrors(response)) {
+                    // Marca como carregado
+                    setIsLoaded(true);
+                    // Marca como erro
+                    setIsError(true);
+                    return;
+                }                                            
+                window.location.href = response.data.url;
             } else {
-                inputError(document.querySelector('.form-sale > [name=email]'), false, error);
+                alert();
             }
         }
     }
@@ -120,8 +135,8 @@ export default (props) => {
     }
 
     // Se carregado
-    if (isLoaded) {
-        return (
+    return (
+        <LoadingAndErrorWrapper isLoaded={isLoaded} isError={isError}>
             <div className="course-detail">
                 <div>
                     <div className="card">
@@ -151,11 +166,6 @@ export default (props) => {
                     </div>
                 </div>
             </div>
-        )
-    // Loading
-    } else {
-        return (
-            <Loading />
-        )
-    }
+        </LoadingAndErrorWrapper>
+    )
 }

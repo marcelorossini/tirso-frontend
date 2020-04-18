@@ -31,7 +31,7 @@ const Header = ({ history }) => {
                         <Link to="/cursos" onClick={() => toggleMenu(false)}>CURSOS</Link>
                     </li>                                   
                     <li>
-                        <Link to="/about" onClick={() => toggleMenu(false)}>CURSOS</Link>
+                        <Link to="/about" onClick={() => toggleMenu(false)}>SOBRE</Link>
                     </li>
                     <li>
                         <Link to="/" onClick={() => toggleMenu(false)}>ÁREA DO ALUNO <i className="fas fa-user"></i></Link>     

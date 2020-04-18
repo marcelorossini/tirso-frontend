@@ -5,6 +5,7 @@ import './style.css';
 // Outros
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
+import { checkErrors } from '../../Helpers';
 
 export default () => {
     // Cursos
@@ -13,6 +14,9 @@ export default () => {
         const getCourseList = async () => {
             // Cursos
             const courseList = await api.get('/course');
+            if (checkErrors(courseList)) 
+                return;
+            // Preenche state
             setCourses(courseList.data);
         }
         getCourseList();

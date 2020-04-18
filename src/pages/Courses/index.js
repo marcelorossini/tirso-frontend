@@ -5,28 +5,37 @@ import './style.css';
 // Outras
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
-import Loading from '../../components/Loading'
+import LoadingAndErrorWrapper from '../../components/LoadingAndErrorWrapper'
+import { checkErrors } from '../../Helpers';
 
-
-export default () => {
-    // Loading
+export default (props) => {
+    // Loading e erros
     const [isLoaded, setIsLoaded] = useState(false);
+    const [isError, setIsError] = useState(false);  
     // Cursos
     const [courses, setCourses] = useState([]);
     useEffect(() => {
         const getCourseList = async () => {
             // Preenche cursos
             const courseList = await api.get('/course');
+            // Verifica se há erros
+            if (checkErrors(courseList)) {
+                // Marca como carregado
+                setIsError(true);
+                return;
+            }               
             setCourses(courseList.data);
             // Marca como carregado
             setIsLoaded(true);
         }
         getCourseList();
-    }, [])
+        return () => {
+            setCourses([]);
+        }
+    },[props]);
 
-    // Se carregado
-    if (isLoaded) {
-        return (
+    return (
+        <LoadingAndErrorWrapper isLoaded={isLoaded} isError={isError}>
             <div className="courses">
                 <h1>CURSOS</h1>
                 <ul className="course-list">
@@ -47,11 +56,6 @@ export default () => {
                     ))}
                 </ul>
             </div>
-        )
-        // Loading
-    } else {
-        return (
-            <Loading />
-        )
-    }
+        </LoadingAndErrorWrapper>
+    )
 }

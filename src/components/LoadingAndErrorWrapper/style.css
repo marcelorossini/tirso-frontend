@@ -1,0 +1,30 @@
+.main-wrapper {
+    display: contents;
+}
+.main-wrapper .loading {
+    position: fixed;
+    top: 0;
+    display: grid;
+    width: 100%;    
+    height: 100%;
+    z-index: 10000;
+}
+.main-wrapper .loading > div {
+    justify-self: center;
+    align-self: center;
+}
+.main-wrapper .loading > div > i {
+    font-size: 48px;
+    color: var(--color-red)
+}
+.main-wrapper > .error {
+    position: fixed;
+    bottom: 0;
+    left: calc(50% - 250px);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    padding: 10px;    
+    background: var(--color-red);
+    color: var(--color-white);
+}
