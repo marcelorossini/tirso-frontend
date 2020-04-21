@@ -21,7 +21,15 @@ export default (props) => {
 
     return (
         <div className="main-wrapper">
-            {props.children}
+            {/*Esconde o conteudo enquanto carrega*/}
+            { !(props.hideContent || false)
+            ?
+                props.children
+            :
+                null
+            }
+            
+            {/*Enquanto carrega exibe o spinner*/}
             { !props.isLoaded
             ?
                 <div className="loading">            
@@ -30,14 +38,21 @@ export default (props) => {
                     </div>
                 </div>                                
             :                
-                null
+                (props.hideContent || false)
+                ?
+                    props.children
+                :
+                    null
+                
             }
+            {/*Se houver alertas*/}
             { props.alert || '' !== ''
             ?
                 <div className="success"><i className="fas fa-check"></i> {props.alert}</div>
             :
                 null
             }                        
+            {/*Se houver algum erro*/}
             { isError
             ?
                 <div className="error"><i className="fas fa-times"></i> Desculpe, houve um erro, tente novamente!</div>

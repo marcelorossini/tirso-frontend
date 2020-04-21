@@ -71,7 +71,7 @@ const ProcessPayment = ({ history, location, match }) => {
     }
 
     return (
-        <Wrapper isLoaded={isLoaded} isError={isError}>
+        <Wrapper isLoaded={isLoaded} hideContent={true} isError={isError}>
             <div className="payment-status">
                 <div>
                     {
