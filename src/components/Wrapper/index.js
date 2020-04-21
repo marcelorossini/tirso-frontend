@@ -46,7 +46,7 @@ export default (props) => {
                 
             }
             {/*Se houver alertas*/}
-            { props.alert || '' !== ''
+            { (props.alert || '') !== ''
             ?
                 <div className="success"><i className="fas fa-check"></i> {props.alert}</div>
             :

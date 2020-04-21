@@ -165,7 +165,7 @@ export default ({ history, match }) => {
                             {courseDetail.subtitle}
                         </div>
                         <div className="video">
-                            { courseDetail.video || '' !== ''
+                            { (courseDetail.video || '') !== ''
                             ?
                                 <div className="video-wrapper">
                                     <iframe title="video" src={`//www.youtube.com/embed/${courseDetail.video}?autoplay=1`} frameBorder="0" allowFullScreen></iframe>
