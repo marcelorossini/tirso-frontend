@@ -5,7 +5,7 @@ import './style.css';
 // Outras
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
-import LoadingAndErrorWrapper from '../../components/LoadingAndErrorWrapper'
+import Wrapper from '../../components/Wrapper'
 import { checkErrors } from '../../Helpers';
 
 export default (props) => {
@@ -35,7 +35,7 @@ export default (props) => {
     },[props]);
 
     return (
-        <LoadingAndErrorWrapper isLoaded={isLoaded} isError={isError}>
+        <Wrapper isLoaded={isLoaded} isError={isError}>
             <div className="courses">
                 <h1>CURSOS</h1>
                 <ul className="course-list">
@@ -56,6 +56,6 @@ export default (props) => {
                     ))}
                 </ul>
             </div>
-        </LoadingAndErrorWrapper>
+        </Wrapper>
     )
 }

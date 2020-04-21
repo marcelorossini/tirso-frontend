@@ -5,7 +5,7 @@ import './style.css';
 // Other
 import api from '../../services/api';
 import InputMask from 'react-input-mask';
-import LoadingAndErrorWrapper from '../../components/LoadingAndErrorWrapper'
+import Wrapper from '../../components/Wrapper'
 import { checkErrors } from '../../Helpers';
 
 // Function
@@ -13,9 +13,10 @@ export default (props) => {
     // Loading e erros
     const [isLoaded, setIsLoaded] = useState(false);
     const [isError, setIsError] = useState(false);
+    const [alert, setAlert] = useState('');
     // Dados do curso
     const [courseDetail, setCourseDetail] = useState({});
-    useEffect(() => {
+    useEffect(() => {   
         // Consulta dados do curso
         const getCourseDetail = async () => {
             const course = await api.get(`/course?url=${props.match.params.id}`);
@@ -89,7 +90,7 @@ export default (props) => {
             if (courseDetail.release) {
                 // Marca como carregando
                 setIsLoaded(false);
-                const response = await api.post('/checkout', { user, course: courseDetail._id });
+                const response = await api.post('/order/checkout', { user, course: courseDetail._id });
                 // Verifica se há erros
                 if (checkErrors(response)) {
                     // Marca como carregado
@@ -98,9 +99,24 @@ export default (props) => {
                     setIsError(true);
                     return;
                 }                                            
+                // Marca como carregado
+                setIsLoaded(true);                
                 window.location.href = response.data.url;
             } else {
-                alert();
+                // Marca como carregando
+                setIsLoaded(false);
+                const response = await api.post('/waiting/list', { user, course: courseDetail._id });
+                // Verifica se há erros
+                if (checkErrors(response)) {
+                    // Marca como carregado
+                    setIsLoaded(true);
+                    // Marca como erro
+                    setIsError(true);
+                    return;
+                }      
+                // Marca como carregado
+                setIsLoaded(true);
+                setAlert('Você será avisado quando o curso estiver disponível!');                                                      
             }
         }
     }
@@ -136,7 +152,7 @@ export default (props) => {
 
     // Se carregado
     return (
-        <LoadingAndErrorWrapper isLoaded={isLoaded} isError={isError}>
+        <Wrapper isLoaded={isLoaded} isError={isError} alert={alert}>
             <div className="course-detail">
                 <div>
                     <div className="card">
@@ -166,6 +182,6 @@ export default (props) => {
                     </div>
                 </div>
             </div>
-        </LoadingAndErrorWrapper>
+        </Wrapper>
     )
 }

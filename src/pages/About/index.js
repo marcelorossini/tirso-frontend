@@ -17,7 +17,8 @@ export default () => {
                     </p>
                     <br/>
                     <strong>O Profissional</strong>
-                    <p>Nosso objetivo é capacitar as pessoas que gostam de mecânica de motocicleta e formar profissionais nessa área para atuar no mercado de trabalho.</p>                
+                    <p>A mais de 18 anos no ramo de motocicleta, a mais de 12 anos com empresa própria de peças e oficina para motos de todas as marcas, mais de 6 anos em concessionaria e a mais de 5 anos trabalhando com escola de mecânica de motos, formando profissionais capacitados para o trabalho.
+Nossa maior satisfação é a transferência de conhecimento que acumulamos ao longo desses anos de trabalho e o melhor alem do conhecimento técnico a prática, que podemos estar passando para os nossos alunos.</p>
                 </div>             
                 <div className="profile">
                     <img src={tirso} alt="" />

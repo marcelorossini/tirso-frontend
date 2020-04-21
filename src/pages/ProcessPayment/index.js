@@ -3,8 +3,8 @@ import './style.css';
 
 // Outras
 import api from '../../services/api';
-import LoadingAndErrorWrapper from '../../components/LoadingAndErrorWrapper'
-import { checkErrors } from '../../Helpers';
+import Wrapper from '../../components/Wrapper'
+import { checkErrors, capitalize } from '../../Helpers';
 
 // Assets
 import approved from '../../assets/payment/approved.svg'
@@ -20,6 +20,7 @@ const ProcessPayment = ({ history, location, match }) => {
     const search = window.location.search;
     // Dados do uso
     const [userData, setUserData] = useState({});
+    const [courseTitle, setCourseTitle] = useState('');
 
     useEffect(() => {
         // Query Params
@@ -39,12 +40,9 @@ const ProcessPayment = ({ history, location, match }) => {
 
     // Cria pagamento
     const createOrder = async (params) => {
-        const user = params.get('user');
-        const course = params.get('course');
         // Salva no banco
         const object = {
-            user,
-            course,
+            _id: params.get('order'),
             collection_id: params.get('collection_id'),
             collection_status: params.get('collection_status'),
             external_reference: params.get('external_reference'),
@@ -63,26 +61,9 @@ const ProcessPayment = ({ history, location, match }) => {
             setIsError(true);
             return;
         }             
-        // Pega dados do usuário
-        const userData = await api.get(`/user?_id=${user}`);
-        // Verifica se há erros
-        if (checkErrors(userData)) {
-            // Marca como carregado
-            setIsError(true);
-            return;
-        }             
-        setUserData(userData.data[0]);
-        // Envia email
-        const sendMail = await api.post('/mail/send',{
-            user,
-            course
-        });
-        // Verifica se há erros
-        if (checkErrors(sendMail)) {
-            // Marca como carregado
-            setIsError(true);
-            return;
-        }    
+        // Pega dados do usuário e do curso
+        setUserData(response.data.user);
+        setCourseTitle(response.data.course.title);
         // Marca como carregado
         setIsLoaded(true);
         // Vai para oura rota e remove a query string
@@ -90,7 +71,7 @@ const ProcessPayment = ({ history, location, match }) => {
     }
 
     return (
-        <LoadingAndErrorWrapper isLoaded={isLoaded} isError={isError}>
+        <Wrapper isLoaded={isLoaded} isError={isError}>
             <div className="payment-status">
                 <div>
                     {
@@ -98,8 +79,8 @@ const ProcessPayment = ({ history, location, match }) => {
                             ?
                             <div className="card">
                                 <img src={approved} alt="" />
-                                <strong>Obrigado por comprar o curso, {userData.name}!</strong>
-                                <p>Os detalhes serão enviados no email {userData.email}.</p>
+                                <strong>Olá, {userData.name}!<br/>Obrigado por comprar nosso Curso {capitalize(courseTitle)}!</strong>
+                                <p>Os detalhes serão enviados no seu email {userData.email}.</p>
                             </div>
                             :
                             <div className="card">
@@ -110,7 +91,7 @@ const ProcessPayment = ({ history, location, match }) => {
                     }
                 </div>
             </div>
-        </LoadingAndErrorWrapper>
+        </Wrapper>
     )
 }
 export default ProcessPayment;

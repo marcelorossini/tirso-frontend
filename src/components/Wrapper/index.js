@@ -32,9 +32,15 @@ export default (props) => {
             :                
                 null
             }
+            { props.alert || '' !== ''
+            ?
+                <div className="success"><i className="fas fa-check"></i> {props.alert}</div>
+            :
+                null
+            }                        
             { isError
             ?
-                <div className="error">Desculpe, houve um erro, tente novamente!</div>
+                <div className="error"><i className="fas fa-times"></i> Desculpe, houve um erro, tente novamente!</div>
             :
                 null
             }            

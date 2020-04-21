@@ -13,16 +13,16 @@ export default () => {
                 <i className="fas fa-phone-alt"></i> (14) 3624-2501 / <a href="https://api.whatsapp.com/send?phone=5514981023111"><i className="fab fa-whatsapp"></i> (14) 98102-3111</a>
             </div>
             <div className="social">
-                <a href="https://api.whatsapp.com/send?phone=5514981023111">
+                <a target='_blank' href="https://api.whatsapp.com/send?phone=5514981023111">
                     <i className="fab fa-whatsapp"></i>
                 </a>
-                <a href="https://www.facebook.com/tirsocursosetreinamentos/">
+                <a target='_blank' href="https://www.facebook.com/tirsocursosetreinamentos/">
                     <i className="fab fa-facebook-square"></i>
                 </a>
-                <a href="https://www.instagram.com/tirsocursosetreinamentos/">
+                <a target='_blank' href="https://www.instagram.com/tirsocursosetreinamentos/">
                     <i className="fab fa-instagram"></i>
                 </a>
-                <a href="https://www.youtube.com/channel/UCMU66R0sAxETAHM4pyT3RYw">
+                <a target='_blank' href="https://www.youtube.com/channel/UCMU66R0sAxETAHM4pyT3RYw">
                     <i className="fab fa-youtube"></i>
                 </a>
             </div>
