@@ -75,6 +75,8 @@ main {
   background: var(--color-red);
   color: var(--color-white);
   cursor: pointer;
+  justify-content: center;
+  align-content: center;
 }
 .btn:hover {
   background: var(--color-red-dark);

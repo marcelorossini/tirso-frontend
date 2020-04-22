@@ -177,7 +177,7 @@ export default ({ history, match }) => {
                         <div className="description" dangerouslySetInnerHTML={{ __html: courseDetail.description }}></div>
                         <form className="form-sale" onSubmit={e => {e.preventDefault()}}>
                             <input type="text" name="name" placeholder="Nome Completo" onKeyPress={e => {
-                                if (!(/^[a-zA-Z\s]*$/).test(e.key))
+                                if (!(/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/).test(e.key))
                                     e.preventDefault();
                             }}></input>
                             <input type="email" name="email" placeholder="Email"></input>

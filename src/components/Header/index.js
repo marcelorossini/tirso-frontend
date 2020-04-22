@@ -40,7 +40,7 @@ const Header = ({ history }) => {
                     */}
                 </ul>
             </nav>            
-            <strong className="text">{ !menuOpen ? "FIQUE ENTRE O MELHORES, APRENDENDO DE FORMA PRATICA E SAIA NA FRENTE" : ""}</strong>
+            <strong className="text">{ !menuOpen ? "FIQUE ENTRE O MELHORES, APRENDENDO DE FORMA PRÁTICA E SAIA NA FRENTE" : ""}</strong>
         </header>
     )
 }
