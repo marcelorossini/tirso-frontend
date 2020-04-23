@@ -89,10 +89,12 @@ export default () => {
             <ul className="images">
                 {courses.map(course => (
                     <li key={course._id}>
-                        <div className="info">
-                            <strong>{course.title}</strong>
-                            <p>{course.subtitle}</p>
-                            <button className="btn"><Link to={`/cursos/${course.url}`}>SAIBA MAIS</Link></button>
+                        <div className="info-wrapper">
+                            <div className="info">
+                                <strong>{course.title}</strong>
+                                <p>{course.subtitle}</p>
+                                <button className="btn"><Link to={`/cursos/${course.url}`}>SAIBA MAIS</Link></button>
+                            </div>                            
                         </div>
                         <img src={require(`../../${course.cover}`)} alt="" />
                     </li>
