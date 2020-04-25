@@ -29,7 +29,7 @@ const ProcessPayment = ({ history, location, match }) => {
         // Pega id do MP
         const collection_id = params.get('collection_id');
         // Se houver a coleção
-        if (collection_id !== null) {
+        if (status === 'aprovado' && collection_id !== null) {
             // Cria registro
             createOrder(params);
             // Se não houver usuário

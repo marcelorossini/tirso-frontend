@@ -85,27 +85,24 @@ export default ({ history, match }) => {
                 setIsError(true);
                 return;
             }         
-            // Não esconde o conteudo 
-            setHideContent(false);                  
+                                            
             const { _id: user } = response.data;
             // Se não houver erros
-            if (courseDetail.release) {
-                // Marca como carregando
-                setIsLoaded(false);
+            if (courseDetail.release) {                
                 const response = await api.post('/order/checkout', { user, course: courseDetail._id });
                 // Verifica se há erros
                 if (checkErrors(response)) {
-                    // Marca como carregado
-                    setIsLoaded(true);
                     // Marca como erro
                     setIsError(true);
                     return;
                 }
+                // 
                 // Mercado pago
-                console.log(response.data);
                 window.location.href = response.data.url;
+                return false;
             } else {
                 // Marca como carregando
+                setHideContent(false);                       
                 setIsLoaded(false);
                 const response = await api.post('/waiting/list', { user, course: courseDetail._id });
                 // Verifica se há erros
@@ -182,7 +179,7 @@ export default ({ history, match }) => {
                             }}></input>
                             <input type="email" name="email" placeholder="Email"></input>
                             <InputMask mask="(99) 999999999" maskPlaceholder=" " type="text" name="phone" placeholder="Telefone / Celular" />
-                            <button className="btn-comprar btn" type="button" onClick={() => handleSendForm()}>
+                            <button className="btn-comprar btn" type="button" onClick={handleSendForm}>
                                 {courseDetail.release ? "COMPRE AGORA" : "ME AVISE QUANDO DISPONÍVEL"}
                             </button>
                         </form>
