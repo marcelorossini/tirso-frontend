@@ -1,6 +1,6 @@
 .slider {
     width: 100%;
-    height: 90vh;
+    height: 110vh;
     min-height: 600px;
     overflow: hidden;
     position: relative;
@@ -132,22 +132,31 @@
 }
 
 @media (min-width: 600px) {
+    .slider {
+        height: 100vh;
+    }    
     .slider .images>li>.info-wrapper>.info>strong {
         font-size: 48px;
     }
 }
 
 @media (min-width: 780px) {
-    .slider {
-        height: 80vh;
-    }
     .slider .images>li>.info-wrapper>.info>strong {
-        font-size: 64px;
+        font-size: 52px;
     }
     .slider .images>li>.info-wrapper>.info>p {
         font-size: 24px;
     }
     .slider:hover>.prev-image, .slider:hover>.next-image {
         font-size: 120px;
+    }
+}
+
+@media (min-width: 1000px) {
+    .slider {
+        height: 80vh;
+    }
+    .slider .images>li>.info-wrapper>.info>strong {
+        font-size: 64px;
     }
 }
