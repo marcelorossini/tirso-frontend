@@ -27,6 +27,7 @@
   border-radius: 100%;
 }
 .about > div > .text {
+  text-align: center;
   color: var(--color-white);
   padding: 20px 10px 0 0;
 }
