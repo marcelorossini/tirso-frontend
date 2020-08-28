@@ -3,7 +3,7 @@
   background: var(--color-dark);
 }
 .about.page {
-  background: var(--color-white-light);
+  background: var(--color-white);
 }
 .about > div {
   display: grid;
