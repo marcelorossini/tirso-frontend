@@ -21,7 +21,7 @@ export default () => {
               <Route path="/cursos" exact component={Courses} />
               <Route path="/cursos/:id" component={CoursesDetail} />
               <Route path="/processar/:type" component={ProcessPayment} />
-              <Route path="/about" exact component={About} />
+              <Route path="/about" exact component={() => <About isPage={true}/>} />
             </main>
             <Footer/>               
         </BrowserRouter>               
