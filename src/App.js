@@ -18,7 +18,7 @@ export default () => {
             <Header/>          
             <main>
               <Route path="/" exact component={Home} />
-              <Route path="/cursos" exact component={Courses} />
+              <Route path="/cursos" exact component={() => <Courses isPage={true}/>} />
               <Route path="/cursos/:id" component={CoursesDetail} />
               <Route path="/processar/:type" component={ProcessPayment} />
               <Route path="/about" exact component={() => <About isPage={true}/>} />
