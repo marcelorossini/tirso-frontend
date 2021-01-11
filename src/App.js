@@ -12,6 +12,9 @@ import CoursesDetail from './pages/CoursesDetail';
 import ProcessPayment from './pages/ProcessPayment';
 
 export default () => {
+    if (process.env.REACT_APP_MAINTENCE)
+      return <></>
+      
     return (
       <div className="app">
         <BrowserRouter>     
